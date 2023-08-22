@@ -1,0 +1,66 @@
+<%- include('./layout/header') -%>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">WELCOME ADMIN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="btn btn-secondary" href="/admin/create" aria-current="page" type="button">Add User</a>
+                        <a class="btn btn-secondary" href="/" type="button">home</a>
+                    </li>
+                </ul>
+
+
+                <form class="d-flex gap-5" action="/admin/home">
+                    <div class="d-flex gap-2">
+                        <input class="form-control" type="search" name="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div style="padding: 20px 20px 20px 20px;">
+        <table class="table table-dark table-striped ">
+            <tr>
+                <th>sl.no</th>
+                <th>username</th>
+                <th>email</th>
+                <th>edit</th>
+                <th>delete</th>
+            </tr>
+            <% users.forEach((user,i)=>{ %>
+                <tr>
+                    <td>
+                        <%= i+1 %>
+                    </td>
+                    <td>
+                        <%=user.username %>
+                    </td>
+                    <td>
+                        <%=user.email %>
+                    </td>
+                    <td><a href="/admin/edit-user?id=<%=user._id%>"> <button type="button" class="btn btn-success">Edit
+                                User</button></a></td>
+                    <td> <a href="/admin/delete-user?id=<%=user._id%>"><button type="button" id="deletebutton"
+                                class="btn btn-danger">Delete User</button></a></td>
+                </tr>
+                <% }) %>
+
+                    <br><br>
+        </table>
+    </div>
+
+    <%- include('./layout/footer') -%>

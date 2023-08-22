@@ -1,0 +1,87 @@
+<%- include('./layout/header.ejs') %>
+
+
+
+
+
+    <section class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+
+
+
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form action="/admin/edit-user" method="post" id="form">
+
+
+                        <!-- Username input -->
+                        <div class="form-outline mb-4">
+                            <input type="text" id="username" class="form-control form-control-lg"
+                                placeholder="Enter username" name="username" value="<%= user.username %>" required />
+                            <label class="form-label" for="form3Example3">Username</label>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input type="email" id="email" class="form-control form-control-lg"
+                                placeholder="Enter Email" name="email" value="<%= user.email %>" required />
+                            <label class="form-label" for="form3Example3">Email</label>
+                            <p id="empty-email" class="text-danger"></p>
+                        </div>
+
+                        <label>Access: </label>
+                        <select name="access">
+                            <option value="true" <% if(user.access){ %> selected <% } %> >true</option>
+                            <option value="false" <% if(!user.access){ %> selected <% } %> >false</option>
+                        </select>
+
+
+
+                        <input type="hidden" name="_id" value="<%= user._id %>">
+
+                        <div class="text-center text-lg-start mt-4 pt-2 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Update</button>
+                        </div>
+
+                        <h4 class="text-center text-danger fs-6 mt-3">
+                            <%= message %>
+                        </h4>
+
+                    </form>
+
+                    <a class="btn btn-outline-dark" href="/admin/home">Back to home</a>
+                </div>
+
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://theelearningcoach.com/wp-content/uploads/2015/06/technical-graphic-concepts.png"
+                        class="img-fluid" alt="Sample image">
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+
+        let form = document.getElementById('form');
+        const email = document.getElementById('email');
+        const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!emailRegex.test(email.value)) {
+                document.getElementById('empty-email').innerHTML = "Incorrect email format";
+                document.getElementById('empty-email').style.display = "block";
+            } else {
+                document.getElementById('empty-email').innerHTML = "";
+                document.getElementById('empty-email').style.display = "none";
+                form.submit();
+            }
+
+        })
+    </script>
+
+    <%- include('./layout/footer.ejs') %>
